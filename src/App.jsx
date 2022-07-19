@@ -23,6 +23,8 @@ import {
 import React from "react";
 import { useState } from "react";
 import { getCurrentDate } from "./util/date";
+
+
 const App = () => {
   const [newTask, setNewTask] = useState("");
   const [tasks, setTasks] = useState([]);
@@ -35,9 +37,9 @@ const App = () => {
 
     if (newTask.length > 0) {
       //Si el nombre de la tarea es mayor a 0
-      setTasks((prevState) => [
-        ...prevState,
-        { text: newTask, isChecked: false },
+      setTasks([
+        ...tasks,
+        { 'text': newTask, 'isChecked': false },
       ]); //Agrega la tarea a la lista
       setNewTask(""); //Limpia el input
     }
@@ -118,7 +120,7 @@ const App = () => {
               </TabPanel>
             </TabPanels>
           </Tabs>
-          <form onSubmit={addTask}>
+          <form onSubmit={(e) => addTask(e)}>
             <Flex mt="1%">
               <Input
                 value={newTask}
@@ -129,7 +131,7 @@ const App = () => {
                 color="black"
               />{" "}
               {/* Input para agregar una tarea */}
-              <Button onClick={addTask} ml={5} bg="blue.400" color="white">
+              <Button type="submit" ml={5} bg="blue.400" color="white">
                 +
               </Button>
             </Flex>
@@ -139,7 +141,7 @@ const App = () => {
     </>
   );
 };
-
+                
 const TaskItem = ({ task, index, updateTask, removeTask }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef()
